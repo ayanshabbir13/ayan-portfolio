@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayan Shabbir — Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1420;
+    --paper:#F7F6F2;
+    --amber:#E8A33D;
+    --teal:#3A7D7B;
+    --slate:#5B6472;
+    --line:#DAD6CB;
+    --card:#FFFFFF;
+    --radius:10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,246,242,0.9); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; justify-content:space-between; align-items:center; height:64px;}
+  .logo{font-family:'JetBrains Mono',monospace; font-weight:500; font-size:0.95rem;}
+  .logo span{color:var(--amber);}
+  .navlinks{display:flex; gap:28px; font-size:0.85rem; font-family:'JetBrains Mono',monospace;}
+  .navlinks a{text-decoration:none; color:var(--slate); transition:color .15s;}
+  .navlinks a:hover{color:var(--ink);}
+
+  /* HERO — compose window */
+  .hero{padding:72px 0 56px;}
+  .compose{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:0 20px 50px rgba(14,20,32,0.06);
+    overflow:hidden;
+  }
+  .compose-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 18px; background:var(--ink); 
+  }
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .dot.r{background:#E8604C;} .dot.y{background:#E8A33D;} .dot.g{background:#3A7D7B;}
+  .compose-title{margin-left:10px; color:#B9C0CC; font-size:0.78rem; font-family:'JetBrains Mono',monospace;}
+  .compose-body{padding:26px 28px 32px;}
+  .field-row{display:flex; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); font-size:0.9rem;}
+  .field-label{width:56px; color:var(--slate); font-family:'JetBrains Mono',monospace; font-size:0.78rem; padding-top:2px;}
+  .field-value{font-family:'JetBrains Mono',monospace;}
+  .subject-line{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.6rem;
+    padding:22px 0 8px; line-height:1.3;
+  }
+  .cursor{display:inline-block; width:3px; height:1.35rem; background:var(--amber); vertical-align:-3px; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .hero-body{color:var(--slate); font-size:1rem; padding-top:6px; max-width:60ch;}
+  .cta-row{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono',monospace; font-size:0.85rem; font-weight:500;
+    padding:12px 20px; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    border:1px solid transparent; transition:transform .12s ease, background .12s ease;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{transform:translateY(-2px); background:#1B2438;}
+  .btn-ghost{border-color:var(--line); color:var(--ink);}
+  .btn-ghost:hover{transform:translateY(-2px); border-color:var(--ink);}
+
+  /* SECTION HEADERS */
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--teal);
+    text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;
+  }
+  section{padding:64px 0;}
+  section h2{font-size:1.6rem; margin-bottom:28px;}
+  .divider{height:1px; background:var(--line); margin:0;}
+
+  /* SKILLS as tags */
+  .tag-groups{display:flex; flex-direction:column; gap:22px;}
+  .tag-group-label{font-size:0.85rem; color:var(--slate); margin-bottom:10px;}
+  .tags{display:flex; flex-wrap:wrap; gap:10px;}
+  .tag{
+    font-family:'JetBrains Mono',monospace; font-size:0.82rem;
+    background:var(--card); border:1px solid var(--line); border-radius:6px;
+    padding:8px 14px; transition:border-color .15s, transform .15s;
+  }
+  .tag:hover{border-color:var(--teal); transform:translateY(-2px);}
+  .tag b{color:var(--teal);}
+
+  /* PROJECT CARD */
+  .project-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; display:grid; grid-template-columns:1.1fr 1fr;
+  }
+  .project-preview{
+    background:linear-gradient(135deg,#fbf3df,#e6ca83);
+    padding:22px; display:flex; flex-direction:column; gap:10px; justify-content:center;
+  }
+  .fake-browser{background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,0.12);}
+  .fake-browser-bar{background:#111; padding:6px 10px; display:flex; gap:5px;}
+  .fake-browser-bar span{width:7px;height:7px;border-radius:50%; background:#555; display:inline-block;}
+  .fake-browser-body{padding:14px; font-size:0.65rem; color:#111;}
+  .fake-browser-body .title{font-weight:700; letter-spacing:1px; text-transform:uppercase; font-size:0.7rem; margin-bottom:8px;}
+  .fake-grid{display:grid; grid-template-columns:1fr 1fr; gap:6px;}
+  .fake-item{background:#fff; border:1px solid #bc964c; border-radius:3px; padding:6px; font-size:0.55rem;}
+  .fake-swatch{height:36px; background:#f2e6c8; border-radius:2px; margin-bottom:4px;}
+  .project-info{padding:26px 28px;}
+  .project-info h3{font-size:1.15rem; margin-bottom:6px;}
+  .project-info .stack{font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--teal); margin-bottom:12px;}
+  .project-info p{color:var(--slate); font-size:0.9rem; margin-bottom:16px;}
+  .project-info ul{color:var(--slate); font-size:0.87rem; padding-left:18px; margin-bottom:18px;}
+  .project-info ul li{margin-bottom:4px;}
+  .project-info .btn{padding:9px 16px; font-size:0.78rem;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  .about-grid p{color:var(--slate); font-size:0.95rem; margin-bottom:14px;}
+  .stat-block{display:flex; flex-direction:column; gap:18px;}
+  .stat{border-left:2px solid var(--amber); padding-left:14px;}
+  .stat .num{font-family:'Space Grotesk',sans-serif; font-size:1.4rem; font-weight:700;}
+  .stat .label{font-size:0.8rem; color:var(--slate);}
+
+  /* CONTACT */
+  .contact-box{
+    background:var(--ink); color:var(--paper); border-radius:var(--radius);
+    padding:44px 40px; text-align:center;
+  }
+  .contact-box .eyebrow{color:var(--amber);}
+  .contact-box h2{color:#fff; margin-bottom:10px;}
+  .contact-box p{color:#B9C0CC; max-width:50ch; margin:0 auto 26px;}
+  .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  .contact-links a{
+    font-family:'JetBrains Mono',monospace; font-size:0.85rem;
+    border:1px solid rgba(255,255,255,0.2); border-radius:6px; padding:11px 18px;
+    text-decoration:none; color:#fff; transition:background .15s, border-color .15s;
+  }
+  .contact-links a:hover{background:var(--amber); border-color:var(--amber); color:var(--ink);}
+
+  footer{padding:28px 0 40px; text-align:center; color:var(--slate); font-size:0.8rem; font-family:'JetBrains Mono',monospace;}
+
+  @media (max-width:720px){
+    .about-grid{grid-template-columns:1fr;}
+    .project-card{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+    .subject-line{font-size:1.25rem;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cursor{animation:none;}
+  }
+  :focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">ayan<span>.</span>dev</div>
+    <div class="navlinks">
+      <a href="#skills">skills</a>
+      <a href="#work">work</a>
+      <a href="#about">about</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="compose">
+      <div class="compose-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="compose-title">new message.compose</span>
+      </div>
+      <div class="compose-body">
+        <div class="field-row">
+          <div class="field-label">From</div>
+          <div class="field-value">Ayan Shabbir &lt;web developer&gt;</div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">To</div>
+          <div class="field-value">Hiring Manager, Remote Team</div>
+        </div>
+        <div class="subject-line">
+          Available for remote web developer roles<span class="cursor"></span>
+        </div>
+        <div class="hero-body">
+          I build clean, responsive websites and interfaces — and I also know how to get them
+          in front of people, thanks to a background in email marketing. Frontend-focused,
+          detail-driven, and comfortable working async with remote teams.
+        </div>
+        <div class="cta-row">
+          <a href="#work" class="btn btn-primary">View work →</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">// skills</div>
+    <h2>What I work with</h2>
+    <div class="tag-groups">
+      <div>
+        <div class="tag-group-label">Frontend</div>
+        <div class="tags">
+          <span class="tag">&lt;<b>HTML5</b>/&gt;</span>
+          <span class="tag">&lt;<b>CSS3</b>/&gt;</span>
+          <span class="tag">&lt;<b>JavaScript</b>/&gt;</span>
+          <span class="tag">&lt;<b>React</b>/&gt;</span>
+          <span class="tag">&lt;<b>Responsive Design</b>/&gt;</span>
+        </div>
+      </div>
+      <div>
+        <div class="tag-group-label">Design</div>
+        <div class="tags">
+          <span class="tag"><b>UI</b> Design</span>
+          <span class="tag"><b>UX</b> Design</span>
+          <span class="tag">Design Systems</span>
+          <span class="tag">Figma → Code</span>
+        </div>
+      </div>
+      <div>
+        <div class="tag-group-label">Marketing</div>
+        <div class="tags">
+          <span class="tag">Email Marketing</span>
+          <span class="tag">Campaign Design</span>
+          <span class="tag">Landing Pages</span>
+          <span class="tag">Conversion-focused Copy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<section id="work">
+  <div class="wrap">
+    <div class="eyebrow">// selected work</div>
+    <h2>Featured project</h2>
+    <div class="project-card">
+      <div class="project-preview">
+        <div class="fake-browser">
+          <div class="fake-browser-bar"><span></span><span></span><span></span></div>
+          <div class="fake-browser-body">
+            <div class="title">Malik Arts</div>
+            <div class="fake-grid">
+              <div class="fake-item"><div class="fake-swatch"></div>Lawn Suit</div>
+              <div class="fake-item"><div class="fake-swatch"></div>Embroidered</div>
+              <div class="fake-item"><div class="fake-swatch"></div>Luxury Set</div>
+              <div class="fake-item"><div class="fake-swatch"></div>Bargain Chat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <h3>Malik Arts — Premium Store</h3>
+        <div class="stack mono">HTML · CSS · JavaScript</div>
+        <p>A product landing page for a Pakistani clothing retailer, with a custom-built
+        floating chat widget that lets shoppers negotiate a price and send their offer
+        straight to WhatsApp.</p>
+        <ul>
+          <li>Fully responsive product grid</li>
+          <li>Custom animated page-load intro</li>
+          <li>Interactive bargain-chat widget with WhatsApp handoff</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Ask about this project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">// about</div>
+    <h2>A bit about me</h2>
+    <div class="about-grid">
+      <div>
+        <p>I'm a web developer based in Lahore, Pakistan, working with clients and teams
+        remotely. I care about interfaces that are fast, clean, and easy to use — and because
+        I've also worked in email marketing, I think about how a page performs, not just how
+        it looks.</p>
+        <p>I'm currently focused on growing into full remote developer roles — comfortable
+        with async communication, clear written updates, and shipping work independently.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat">
+          <div class="num">Frontend</div>
+          <div class="label">Core focus: HTML, CSS, JavaScript, React</div>
+        </div>
+        <div class="stat">
+          <div class="num">Remote-ready</div>
+          <div class="label">Comfortable with async, written-first collaboration</div>
+        </div>
+        <div class="stat">
+          <div class="num">Marketing background</div>
+          <div class="label">Understands campaigns, conversion, and audience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <div class="eyebrow">// contact</div>
+      <h2>Let's work together</h2>
+      <p>Open to remote web developer roles — full-time or contract. Reach out and I'll
+      reply within a day.</p>
+      <div class="contact-links">
+        <a href="mailto:wmanwman2926@gmail.com">✉ wmanwman2926@gmail.com</a>
+        <a href="#" target="_blank">GitHub</a>
+        <a href="#" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Ayan Shabbir — built with HTML, CSS &amp; JavaScript</footer>
+
+</body>
+</html>
